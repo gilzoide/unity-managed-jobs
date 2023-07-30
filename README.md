@@ -20,9 +20,9 @@ This package makes it easy to use managed types as jobs by providing blittable s
 
 ## Installing
 Either:
-- Install via [Unity Package Manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html) using this repository URL:
+- Install via [Unity Package Manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html) using this repository URL and tag:
   ```
-  https://github.com/gilzoide/unity-managed-jobs.git
+  https://github.com/gilzoide/unity-managed-jobs.git#1.0.0
   ```
 - Clone this repository directly inside your project's `Assets` or `Packages` folder.
 
