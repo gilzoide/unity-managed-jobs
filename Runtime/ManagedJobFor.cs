@@ -26,7 +26,7 @@ namespace Gilzoide.ManagedJobs
         /// <summary>Whether this instance has a managed job.</summary>
         public bool HasJob => _managedJobGcHandle.IsAllocated;
 
-        private readonly GCHandle _managedJobGcHandle;
+        private GCHandle _managedJobGcHandle;
 
         public ManagedJobFor(IJobFor managedJob)
         {
