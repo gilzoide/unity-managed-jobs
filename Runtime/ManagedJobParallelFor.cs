@@ -24,7 +24,7 @@ namespace Gilzoide.ManagedJobs
             : null;
 
         /// <summary>Whether this instance has a managed job.</summary>
-        public bool HasJob => _managedJobGcHandle.IsAllocated;
+        public bool HasJob => Job != null;
 
         private GCHandle _managedJobGcHandle;
 
@@ -39,10 +39,7 @@ namespace Gilzoide.ManagedJobs
         /// <remarks>If no managed job was passed, or the handle was already freed, this method is a no-op.</remarks>
         public void Execute(int index)
         {
-            if (_managedJobGcHandle.IsAllocated)
-            {
-                ((IJobParallelFor) _managedJobGcHandle.Target).Execute(index);
-            }
+            Job?.Execute(index);
         }
 
         /// <summary>Frees the internal object GCHandle.</summary>
