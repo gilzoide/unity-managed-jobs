@@ -1,9 +1,10 @@
 using System.Threading;
 using Unity.Jobs;
+using UnityEngine.Jobs;
 
 namespace Gilzoide.ManagedJobs.Tests.Editor
 {
-    public class CounterManagedJob : IJob, IJobFor, IJobParallelFor
+    public class CounterManagedJob : IJob, IJobFor, IJobParallelFor, IJobParallelForTransform
     {
         public int Counter => _counter;
         public bool HasExecuted => _counter > 0;
@@ -19,7 +20,12 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
             _counter++;
         }
 
-        public void Execute(int _)
+        public void Execute(int index)
+        {
+            Interlocked.Increment(ref _counter);
+        }
+
+        public void Execute(int index, TransformAccess transform)
         {
             Interlocked.Increment(ref _counter);
         }
