@@ -1,0 +1,12 @@
+{
+  "name": "com.gilzoide.managed-jobs",
+  "displayName": "Managed Jobs",
+  "version": "1.0.0",
+  "description": "Use classes and other managed types with Unity's Job System",
+  "homepage": "https://github.com/gilzoide/unity-managed-jobs",
+  "license": "Unlicense",
+  "author": {
+    "name": "Gil Barbosa Reis"
+  },
+  "unity": "2018.1"
+}
