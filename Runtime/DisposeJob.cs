@@ -3,11 +3,13 @@ using Unity.Jobs;
 
 namespace Gilzoide.ManagedJobs
 {
-    public struct DisposeJob<TJob> : IJob where TJob : struct, IDisposable
+    /// <summary>Job that disposes the IDisposable struct passed on its constructor.</summary>
+    /// <remarks>Use this with Job dependencies to dispose of a job struct after its job is completed.</remarks>
+    public struct DisposeJob<TDisposable> : IJob where TDisposable : struct, IDisposable
     {
-        public TJob Disposable { get; }
+        public TDisposable Disposable { get; }
 
-        public DisposeJob(TJob disposable)
+        public DisposeJob(TDisposable disposable)
         {
             Disposable = disposable;
         }
