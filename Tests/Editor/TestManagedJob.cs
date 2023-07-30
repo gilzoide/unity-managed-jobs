@@ -1,6 +1,5 @@
 using System.Collections;
 using NUnit.Framework;
-using Unity.Jobs;
 using UnityEngine.TestTools;
 
 namespace Gilzoide.ManagedJobs.Tests.Editor
@@ -26,7 +25,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void Job_WhenConstructedWithValidJob_ReturnsPassedJob()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             Assert.That(managedJob.Job, Is.SameAs(innerJob));
         }
@@ -34,7 +33,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void Job_WhenConstructedWithValidJobThenDisposed_ReturnsNull()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             managedJob.Dispose();
             Assert.That(managedJob.Job, Is.Null);
@@ -61,7 +60,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void HasJob_WhenConstructedWithValidJob_ReturnsTrue()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             Assert.That(managedJob.HasJob, Is.True);
         }
@@ -69,7 +68,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void HasJob_WhenConstructedWithValidJobThenDisposed_ReturnsFalse()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             managedJob.Dispose();
             Assert.That(managedJob.HasJob, Is.False);
@@ -100,7 +99,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void Execute_WhenConstructedWithValidJob_RunsInnerJobExecute()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             Assert.That(innerJob.HasExecuted, Is.False);
             managedJob.Execute();
@@ -110,7 +109,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void Execute_WhenConstructedWithValidJobThenDisposed_ThrowsNothing()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             managedJob.Dispose();
             Assert.That(() =>
@@ -144,7 +143,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void Schedule_WhenConstructedWithValidJob_RunsInnerJobExecute()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             Assert.That(innerJob.HasExecuted, Is.False);
             managedJob.Schedule().Complete();
@@ -154,7 +153,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [UnityTest]
         public IEnumerator Schedule_DisposesOfInnerJob()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             Assert.That(managedJob.HasJob, Is.True);
             managedJob.Schedule().Complete();
@@ -187,7 +186,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void Run_WhenConstructedWithValidJob_RunsInnerJobExecute()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             Assert.That(innerJob.HasExecuted, Is.False);
             managedJob.Run();
@@ -197,7 +196,7 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         [Test]
         public void Run_DisposesOfInnerJob()
         {
-            var innerJob = new MyClassJob();
+            var innerJob = new CounterManagedJob();
             var managedJob = new ManagedJob(innerJob);
             Assert.That(managedJob.HasJob, Is.True);
             managedJob.Run();
@@ -205,17 +204,5 @@ namespace Gilzoide.ManagedJobs.Tests.Editor
         }
 
         #endregion
-
-        private class MyClassJob : IJob
-        {
-            public bool HasExecuted { get; private set; }
-            public string ManagedData { get; set; } = "hello world!";
-
-            public void Execute()
-            {
-                HasExecuted = true;
-            }
-        }
     }
-
 }
