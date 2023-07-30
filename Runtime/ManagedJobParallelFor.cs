@@ -57,9 +57,9 @@ namespace Gilzoide.ManagedJobs
         /// <summary>Schedule the job for concurrent execution on a number of worker threads.</summary>
         public JobHandle Schedule(int arrayLength, int innerloopBatchCount, JobHandle dependsOn = default)
         {
-            var handle = IJobParallelForExtensions.Schedule(this, arrayLength, innerloopBatchCount, dependsOn);
-            new DisposeJob<ManagedJobParallelFor>(this).Schedule(handle);
-            return handle;
+            var jobHandle = IJobParallelForExtensions.Schedule(this, arrayLength, innerloopBatchCount, dependsOn);
+            new DisposeJob<ManagedJobParallelFor>(this).Schedule(jobHandle);
+            return jobHandle;
         }
 
         /// <summary>Perform the job's Execute method immediately on the main thread.</summary>

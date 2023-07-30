@@ -56,9 +56,9 @@ namespace Gilzoide.ManagedJobs
         /// <summary>Schedule the job for execution on a worker thread.</summary>
         public JobHandle Schedule(JobHandle dependsOn = default)
         {
-            var handle = IJobExtensions.Schedule(this, dependsOn);
-            new DisposeJob<ManagedJob>(this).Schedule(handle);
-            return handle;
+            var jobHandle = IJobExtensions.Schedule(this, dependsOn);
+            new DisposeJob<ManagedJob>(this).Schedule(jobHandle);
+            return jobHandle;
         }
 
         /// <summary>Perform the job's Execute method immediately on the same thread.</summary>

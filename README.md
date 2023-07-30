@@ -7,7 +7,8 @@ Use classes and other managed types with [Unity's Job System](https://docs.unity
 - Use [ManagedJob](Runtime/ManagedJob.cs) for managed `IJob` types
 - Use [ManagedJobFor](Runtime/ManagedJobFor.cs) for managed `IJobFor` types
 - Use [ManagedJobParallelFor](Runtime/ManagedJobParallelFor.cs) for managed `IJobParallelFor` types
-- Automatic disposal of the allocated `GCHandle` if you call `Schedule` / `ScheduleParallel` / `Run` directly on the wrapper structs
+- Use [ManagedJobParallelForTransform](Runtime/ManagedJobParallelForTransform.cs) for managed `IJobParallelForTransform` types
+- Automatic disposal of the allocated `GCHandle` if you call `Schedule` / `Run` methods and their variations directly on the wrapper structs
 
 
 ## Caveats
@@ -30,7 +31,7 @@ public class MyManagedJobClass : IJob
     }
 }
 
-// 2. Schedule the job by using the wrapper ManagedJob type
+// 2. Schedule the job by using the wrapper ManagedJob struct type
 var myManagedJobObject = new MyManagedJobClass();
 var jobHandle = new ManagedJob(myManagedJobObject).Schedule();
 // 3. Complete the jobHandle or use it as dependency to other jobs as usual
